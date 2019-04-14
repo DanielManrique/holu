@@ -1,0 +1,105 @@
+<html>
+<head>
+	<meta charset="UTF-8"></meta>
+	<style>
+		body
+		{
+			margin:0px;
+			padding:0px;
+		}
+		
+		.user
+		{
+			border-bottom:1px solid black;
+		}
+	</style>
+	<script src="./js/jquery.js"></script>	
+	<script src="./js/sockets_pantalla.js"></script>
+	<script language="javascript">
+		function dibujar_respuestas(obj)
+		{
+			document.getElementById("audio").play();
+		
+			$("#div_preguntas").fadeOut("slow");
+			$("#txt_pregunta").fadeOut("slow");
+			
+			$("#div_preguntas").fadeIn("slow");
+			$("#txt_pregunta").fadeIn("slow");
+			
+			$("#div_preguntas").html("");
+			$("#txt_pregunta").html(obj.consigna);
+			
+			for (var i=0;i<=obj.lista.length-1;i++)
+			{
+				var respuesta = obj.lista[i];
+				var html ='<div style="border:1px solid black;height:35px;margin-bottom:5px;">'+
+								'<div style="float:left;background:violet;width:15px;height:15px;color:white;font-weight:bold;padding:10px;">'+respuesta.item+'</div>'+
+								'<div style="padding-left:5px;padding-top:8px;float:left;height:15px;color:black;font-size:18px;height:31px;text-align:left;">'+
+									respuesta.texto+
+								'</div>'+
+						   '</div>';
+						   
+				$("#div_preguntas").append(html);
+			}
+		}
+		
+		function dibujar_ganadores(nombres)
+		{/*
+			if (nombres!=null)
+			{
+				$("#txt_pregunta").fadeOut("slow");
+				$("#txt_pregunta").fadeIn("slow");
+				$("#txt_pregunta").html("Ganadores!:<br>"+nombres);			
+			}
+			else
+			{
+				$("#txt_pregunta").fadeOut("slow");
+				$("#txt_pregunta").fadeIn("slow");
+				$("#txt_pregunta").html("No hay ganadores!");
+			}*/
+		}
+		
+		function agregar_usuario(usuario)
+		{
+			var html ='<div style="background:white;" id="lista_usuarios">'+
+							'<div class="user">'+usuario+'</div>'+
+					  '</div>';
+			$("#div_user_list").append(html);		
+		}
+	</script>	
+</head>
+<body>
+	<audio controls style="display:none;" id="audio">	
+		<source src="./sounds/sound.mp3" type="audio/mpeg">
+	</audio>
+	<div id="contenedor" style="color:White;background:white;margin:auto;width:700px;height:550px;margin-top:40px;padding:5px;text-align:center;border:1px solid black;">
+		<div style="float:left;width:570px;">
+			<!--Logo-->
+			<div>
+				<img src="./imgs/logo.png">
+			</div>
+			<!--Preguntas-->
+			<div style="border-top:1px solid black;margin-top:5px;height:200px;padding:5px;background:orange;border-bottom:1px solid black;">
+				<div id="txt_pregunta" style="margin:auto;margin-top:20px;width:450px;background:green;padding:5px;border-bottom:1px solid black;border-right:1px solid black;font-size:25px;text-align:center;word-break: break-all;">
+				</div>
+			</div>
+			<!--Respuestas-->
+			<div id="div_preguntas" style="border-top:1px solid black;margin-top:5px;height:210px;padding:5px;background:white;border-bottom:1px solid black;">
+			</div>
+		</div>
+		<!--Panel de usuarios-->
+		<div style="float:left;color:black;border-left:1px solid black;height:550px;width:128px;">
+			<div style="background:green;color:white;padding:4px;text-align:center;margin-left:5px;">
+				Usuarios Activos
+			</div>
+			<!--Lista de usuarios-->
+			<div id="div_user_list" style="background:green;widt:128px;margin-left:5px;margin-top:5px;height:510px;padding:3px;overflow:Auto;">
+			</div>
+		</div>
+	</div>
+	<!--Label de conexiones-->
+	<div id="div_status" style="font-weight:bold;color:black;background:orange;margin:auto;width:708px;height:20px;padding:1px;text-align:center;border:1px solid black;margin-top:-1px;">
+		Conexión error
+	</div>	
+</body>
+</html>

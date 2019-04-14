@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, user-scalable=no"></meta>
+	<style>
+		body
+		{
+			margin:0px;
+			padding:0px;
+		}
+		
+		.boton
+		{
+			width:80%;
+			height:30px;
+			padding:5px;
+			margin-bottom:10px;
+		}
+	</style>
+	<script src="./js/jquery.js"></script>	
+	<script src="./js/sockets_celu.js"></script>
+</head>
+<body>
+		<div style="background:green;padding:8px;width:100%;color:white;text-align:center;">
+			<b>TV Trivia</b>
+		</div>
+		<div id="conex_status" style="font-size:15px;background:silver;padding:8px;width:100%;color:white;text-align:center;">
+			<span></span>
+		</div>		
+		<div style="font-size:20px;background:orange;padding:8px;width:100%;color:white;text-align:center;">
+			<span id="txt_titulo"></span>
+		</div>	
+		<div id="botonera" style="font-size:15px;padding:8px;width:100%;color:white;text-align:center;border-top:1px dotted green;padding-top:5px;">
+		</div>		
+</body>
+	<script language="javascript">
+		//Mostrar solo la respuesta.
+		function mostrar_respuesta(lista,id)
+		{
+			$("#botonera").html("");
+			
+			for (var i=0;i<=lista.length-1;i++)
+			{
+				var tmp  = lista[i];
+				
+				if (tmp.item==id)
+				{
+					var html = '<input type="button" id="'+tmp.item+'" value="'+tmp.item+')  '+tmp.texto+'" class="boton" readonly>';
+					$("#botonera").append(html);					
+				}
+			}
+		}
+		
+		//Dibuja la botonera
+		function dibujar_botonera(lista)
+		{
+			$("#botonera").html("");
+			
+			for (var i=0;i<=lista.length-1;i++)
+			{
+				var tmp  = lista[i];
+				var html = '<input type="button" id="'+tmp.item+'" value="'+tmp.item+')  '+tmp.texto+'" class="boton">';						
+				
+				$("#botonera").append(html);
+				
+				$("#"+tmp.item).click(function()
+				{
+					enviar_respuesta(this.id);
+					mostrar_respuesta(lista,this.id);
+				});				
+			}
+		}
+	</script>
+</html>
